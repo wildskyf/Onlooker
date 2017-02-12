@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Onlooker</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
 		body {
 			background: #24C6DC;
@@ -78,6 +79,33 @@
 		}
 		#footer a {
 			color: #ffffff;
+		}
+
+		@media screen and (max-width: 480px) {
+			#header,
+			#main > div,
+			#main p,
+			#main > div > div,
+			#main button,
+			#footer {
+				width: 90%;
+			}
+
+			#header, #footer {
+				margin: 1rem auto;
+			}
+
+			#main p {
+				padding-bottom: 1rem;
+			}
+
+			#main > div {
+				padding: 1rem 0;
+			}
+
+			#main button {
+				margin-top: 1rem;
+			}
 		}
 
 	</style>
