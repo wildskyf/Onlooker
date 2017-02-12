@@ -96,7 +96,7 @@
 		<div>
 			<p>Please provide their profile link below.</p>
 			<div>
-				<input id="user1" type="text" placeholder="https://www.facebook.com/zuck">
+				<input id="user1" type="text" placeholder="https://www.facebook.com/zuck" autofocus>
 				<input id="user2" type="text" placeholder="https://www.facebook.com/profile.php?id=100000157150997">
 			</div>
 			<button>Let's see...</button>
@@ -108,6 +108,8 @@
 
 	<script>
 	window.onload = function(){
+		var user1_input = document.querySelector('#user1');
+		var user2_input = document.querySelector('#user2');
 		var button = document.querySelector('#main button');
 
 		var getPara = function (name, url) {
@@ -137,9 +139,9 @@
 			}
 		};
 
-		button.addEventListener('click', function(){
-			var user1 = processLink(document.querySelector('#user1').value);
-			var user2 = processLink(document.querySelector('#user2').value);
+		var linkGenerator =  function(){
+			var user1 = processLink(user1_input.value);
+			var user2 = processLink(user2_input.value);
 
 			if (user1 == null || user2 == null) {
 				alert('the link in invalid');
@@ -157,7 +159,20 @@
 			else {
 				location.href = "https://www.facebook.com/friendship/" + user1 + '/' + user2;
 			}
+		};
+
+		user1_input.addEventListener('keydown', function(e){
+			if (user1_input.value != '' && e.key == 'Enter') {
+				user2_input.focus();
+			}
 		});
+		user2_input.addEventListener('keydown', function(e){
+			if (user2_input.value != '' && e.key == 'Enter') {
+				linkGenerator();
+			}
+		});
+
+		button.addEventListener('click', linkGenerator);
 	};
 	</script>
 </body>
