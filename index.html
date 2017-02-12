@@ -105,5 +105,60 @@
 	<div id="footer">
 		<a href="https://github.com/wildskyf/onlooker">wildsky @ github</a>
 	</div>
+
+	<script>
+	window.onload = function(){
+		var button = document.querySelector('#main button');
+
+		var getPara = function (name, url) {
+			if (!url) {
+				url = window.location.href;
+			}
+			name = name.replace(/[\[\]]/g, "\\$&");
+			var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+			results = regex.exec(url);
+			if (!results) return null;
+			if (!results[2]) return '';
+			return decodeURIComponent(results[2].replace(/\+/g, " "));
+		}
+
+		var processLink = function(link){
+			var isFB = /^(?:https?\:\/\/)?(?:www\.)?facebook\.com\/(.*)/;
+
+			if (getPara('id', link)) {
+				return getPara('id', link);
+			}
+			if (isFB.test(link)) {
+				var username = isFB.exec(link)[1];
+				return username;
+			}
+			else {
+				return null;
+			}
+		};
+
+		button.addEventListener('click', function(){
+			var user1 = processLink(document.querySelector('#user1').value);
+			var user2 = processLink(document.querySelector('#user2').value);
+
+			if (user1 == null || user2 == null) {
+				alert('the link in invalid');
+				return;
+			}
+			else if (user1 == '' && user2 == '') {
+				location.href = "https://www.facebook.com/friendship/zuck/wi1d5ky/";
+			}
+			else if (user1 == '' || user2 == '' || user1 == user2) {
+				var user = user1 || user2;
+				if (confirm('Do you want to see ' + user + '\'s profile page?') ){
+					location.href = "https://www.facebook.com/friendship/" + user;
+				}
+			}
+			else {
+				location.href = "https://www.facebook.com/friendship/" + user1 + '/' + user2;
+			}
+		});
+	};
+	</script>
 </body>
 </html>
