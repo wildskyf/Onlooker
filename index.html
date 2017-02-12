@@ -134,6 +134,9 @@
 				var username = isFB.exec(link)[1];
 				return username;
 			}
+			else if (link == '') {
+				return '';
+			}
 			else {
 				return null;
 			}
